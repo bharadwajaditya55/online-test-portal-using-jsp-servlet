@@ -1,0 +1,64 @@
+create table Login(
+userId varchar(50),
+password varchar(50),
+userType varchar(15),
+em varchar(50)
+);
+create table Subject(
+subjectId number,
+subjectName varchar(50),
+description varchar(500),
+primary key(subjectId)
+);
+
+create table Topic(
+subjectId number,
+topicId number,
+topicName varchar(50),
+description varchar(500),
+constraint primary key(topicId),
+constraint foreign key(subjectId) references Subject(subjectId) on delete cascade
+);
+
+create table TopicContents(
+topicId int,
+topicContent longtext,
+constraint primary key(topicId),
+constraint foreign key(topicId) references Topic(TopicId) on delete cascade
+);
+
+create table Question(
+subjectId number,
+questionId number,
+question varchar(500),
+option1 varchar(50),
+option2 varchar(50),
+option3 varchar(50),
+option4 varchar(50),
+explanation varchar(4000),
+constraint primary key(questionId),
+constraint foreign key(subjectId) references Subject(subjectId) on delete cascade
+);
+create table Paper(
+paperId number,
+paperName varchar(50),
+subjectId number,
+totalQuestions number,     
+timeInMinute number, 
+constraint primary key(paperId),
+constraint foreign key(subjectId) references Subject(subjectId) on delete cascade
+);
+create table QuestionPaperSet(
+paperId number,
+questionId number,
+constraint primary key(questionId,paperId),constraint fky1 foreign key(paperId) references Paper(paperId) on delete cascade,
+constraint fky2 foreign key(questionId) references Question(questionId) on delete cascade 
+);
+create table results(
+Rid int,
+userId varchar(50),
+subjectName varchar(50),
+paperName varchar(50),
+total varchar(45),score(45),
+primary key(Rid)
+);
